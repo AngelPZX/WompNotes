@@ -1,58 +1,51 @@
 package com.example.wompnotes.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+// Definir los colores para el modo claro
+private val LightColorPalette = lightColorScheme(
+    primary = Color(0xFFFFD700),  // Amarillo dorado
+    onPrimary = Color(0xFF5D4037),  // Café oscuro
+    primaryContainer = Color(0xFFFFF8E1), // Fondo amarillo claro
+    secondary = Color(0xFF795548),  // Café medio
+    onSecondary = Color.White,
+    background = Color(0xFFFFFDE7), // Fondo de aplicación amarillo suave
+    surface = Color(0xFFFFF8E1),  // Superficies (cartas, botones)
+    onBackground = Color(0xFF5D4037), // Texto principal
+    onSurface = Color(0xFF5D4037),  // Texto en superficies
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+// Definir los colores para el modo oscuro
+private val DarkColorPalette = darkColorScheme(
+    primary = Color(0xFFFFD54F),  // Amarillo más fuerte
+    onPrimary = Color(0xFF3E2723),  // Café muy oscuro
+    primaryContainer = Color(0xFF6D4C41),  // Fondo oscuro
+    secondary = Color(0xFF8D6E63),  // Café más suave
+    onSecondary = Color.Black,
+    background = Color(0xFF3E2723),  // Fondo general
+    surface = Color(0xFF5D4037),  // Superficies en modo oscuro
+    onBackground = Color(0xFFFFD54F),  // Texto de fondo
+    onSurface = Color(0xFFFFD54F),  // Texto en superficie
 )
 
 @Composable
 fun WompNotesTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colors = if (darkTheme) {
+        DarkColorPalette
+    } else {
+        LightColorPalette
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
+        colorScheme = colors,
+        typography = Typography, // Tipografía personalizada
+        shapes = AppShapes,      // Ajuste: Usar `AppShapes` en lugar de `Shapes`
         content = content
     )
 }

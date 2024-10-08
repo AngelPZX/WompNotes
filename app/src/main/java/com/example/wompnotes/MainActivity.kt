@@ -11,13 +11,19 @@ import com.example.wompnotes.models.Note
 import com.example.wompnotes.models.NoteType
 import com.example.wompnotes.ui.NoteDetailScreen
 import com.example.wompnotes.ui.NoteListScreen
+
+import com.example.wompnotes.ui.theme.WompNotesTheme
+
 import java.util.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WompNotesApp()
+            // Aplicar el tema personalizado en toda la aplicación
+            WompNotesTheme {
+                WompNotesApp() // Función principal de la app
+            }
         }
     }
 }
